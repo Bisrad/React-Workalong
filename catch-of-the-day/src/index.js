@@ -1,7 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
-// import StorePicker from "./components/StorePicker.js";
-import App from "./components/App";
+// Import Router
+import Router from "./components/Router";
+// Import Css
 import "./css/style.css";
 
-render(<App />, document.querySelector('#main'));
+// Create Route between pages
+render(<Router />, document.querySelector('#main'));
