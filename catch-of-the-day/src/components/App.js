@@ -3,13 +3,29 @@ import Header from "./Header";
 import Order from "./Order";
 import Inventory from "./Inventory";
 import SampleFishes from "../sample-fishes";  
-import Fish from "./Fish";  
+import Fish from "./Fish"; 
+import base from "../base";
 
 class App extends React.Component {
   state = {
     fishes: {},
     order: {}
   };
+
+  // Lifecycle Methods
+  // Synced State to Firebase ( Mounted )
+  componentDidMount() {
+    const { params } = this.props.match;
+    this.ref = base.syncState(`${params.storeId}/fishes`, {
+      context: this,
+      state: 'fishes'
+    });
+  }
+
+  // Prevent Memory Leak ( UnMounted)
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
 
   addFish = (fish) => {
     // 1. Take a copy of the existing state
