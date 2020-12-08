@@ -13,19 +13,32 @@ class App extends React.Component {
   };
 
   // Lifecycle Methods
-  // Synced State to Firebase ( Mounted )
+  // Synced State to Firebase ( Mount )
   componentDidMount() {
     const { params } = this.props.match;
+    // Reinstate LocalStorage
+    const localStorageRef = localStorage.getItem(params.storeId);
+    if (localStorageRef) {
+      this.setState({ order: JSON.parse(localStorageRef) });
+    }
     this.ref = base.syncState(`${params.storeId}/fishes`, {
       context: this,
       state: 'fishes'
     });
   }
 
-  // Prevent Memory Leak ( UnMounted)
+
+  // LocalStorage
+  componentDidUpdate() {
+    const { params } = this.props.match;
+    localStorage.setItem(params.storeId, JSON.stringify(this.state.order));
+  }
+
+  // Prevent Memory Leak ( UnMount )
   componentWillUnmount() {
     base.removeBinding(this.ref);
   }
+
 
   addFish = (fish) => {
     // 1. Take a copy of the existing state
@@ -33,6 +46,15 @@ class App extends React.Component {
     // 2. Add new fish to the copy data
     fishes[`fish${Date.now()}`] = fish;
     // 3. Set the new fishes object to the state
+    this.setState({ fishes });
+  };
+
+  updateFish = (key, updatedFish) => {
+    // 1. Take a copy of the current state
+    const fishes = { ...this.state.fishes };
+    // 2. Update that state
+    fishes[key] = updatedFish
+    // 3. Set that to state
     this.setState({ fishes });
   };
 
@@ -70,7 +92,9 @@ class App extends React.Component {
           order={this.state.order} />
         <Inventory 
           addFish={this.addFish}
-          loadSampleFishes={this.loadSampleFishes}/>
+          updateFish={this.updateFish}
+          loadSampleFishes={this.loadSampleFishes}
+          fishes={this.state.fishes}/>
       </div>
     );
   }
