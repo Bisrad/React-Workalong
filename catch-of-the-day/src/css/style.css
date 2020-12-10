@@ -535,8 +535,6 @@ input[type=submit][disabled] {
   color: #d12028;
   background: #fff;
   border-color: #d12028;
-  -webkit-transform: rotate(-10deg) scale(2) translateX(50%) translateY(-50%);
-          transform: rotate(-10deg) scale(2) translateX(50%) translateY(-50%);
 }
 button[disabled]:hover,
 input[type=submit][disabled]:hover {
@@ -587,7 +585,9 @@ input[type=submit].github,
 button.facebook,
 input[type=submit].facebook,
 button.twitter,
-input[type=submit].twitter {
+input[type=submit].twitter,
+button.google,
+input[type=submit].google {
   border: 0;
   display: block;
   margin-bottom: 2rem;
@@ -619,6 +619,14 @@ button.twitter:after,
 input[type=submit].twitter:after {
   background: #2c8dd0;
 }
+button.google,
+input[type=submit].google {
+  background: #6495ed;
+}
+button.google:after,
+input[type=submit].google:after {
+  background: #2c8dd0;
+}
 .store-selector {
   background: #fff;
   max-width: 500px;
@@ -634,8 +642,4 @@ input[type=submit].twitter:after {
 .store-selector button[type="text"] {
   text-align: center;
   font-size: 3rem;
-}
-
-.login {
-  text-align: center;
 }

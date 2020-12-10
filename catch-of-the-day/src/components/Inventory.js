@@ -54,35 +54,35 @@ class Inventory extends React.Component {
       .then(this.authHandler);
   };
 
-  // logout = async () => {
-  //   console.log("Logging out!");
-  //   await firebase.auth().signOut();
-  //   this.setState({ uid: null });
-  // };
+  logout = async () => {
+    console.log("Logging out!");
+    await firebase.auth().signOut();
+    this.setState({ uid: null });
+  };
 
   render() {
-    // const logout = <button onClick={this.logout}>Log Out!</button>;
+    const logout = <button onClick={this.logout}>Log Out!</button>;
 
-    // // 1. Check if they are logged in
-    // if (!this.state.uid) {
-    //   return <Login authenticate={this.authenticate} />;
-    // }
+    // 1. Check if they are logged in
+    if (!this.state.uid) {
+      return <Login authenticate={this.authenticate} />;
+    }
 
-    // // 2. check if they are not the owner of the store
-    // if (this.state.uid !== this.state.owner) {
-    //   return (
-    //     <div>
-    //       <p>Sorry you are not the owner!</p>
-    //       {logout}
-    //     </div>
-    //   );
-    // }
+    // 2. check if they are not the owner of the store
+    if (this.state.uid !== this.state.owner) {
+      return (
+        <div>
+          <p>Sorry you are not the owner!</p>
+          {logout}
+        </div>
+      );
+    }
 
     // 3. They must be the owner, just render the inventory
     return (
       <div className="inventory">
         <h2>Inventory</h2>
-        {/* {logout} */}
+        {logout}
         {Object.keys(this.props.fishes).map(key => (
           <EditFishForm
             key={key}
@@ -102,4 +102,3 @@ class Inventory extends React.Component {
 }
 
 export default Inventory;
-
