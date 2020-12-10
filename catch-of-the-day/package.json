@@ -9,6 +9,7 @@
   "dependencies": {
     "autoprefixer-stylus": "^0.14.0",
     "firebase": "^7.24.0",
+    "heroku": "^7.47.5",
     "prop-type": "0.0.1",
     "prop-types": "^15.6.0",
     "re-base": "^4.0.0",
